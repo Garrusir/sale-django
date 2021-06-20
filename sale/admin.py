@@ -29,7 +29,7 @@ class StoreAdmin (admin.ModelAdmin):
 
 class ShopAdmin(admin.ModelAdmin):
 	list_display = ('id', 'address', 'city', 'store', 'storeType')
-	ist_display_links = ('id', 'address', 'city', 'store', 'storeType')
+	list_display_links = ('id', 'address', 'city', 'store', 'storeType')
 	search_fields = ['store', 'address', 'city']
 
 # @admin.register(Sale)
