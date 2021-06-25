@@ -1,5 +1,22 @@
-$bg-color: green;
+$bg-color: #f7f6f2;
+$divider: #ccc;
+$spacing: 6px;
 
 body {
   background: $bg-color;
+  margin: 0;
+  padding: 0;
 }
+
+  .appBar {
+    border-bottom: 1px solid $divider;
+  }
+  .toolbar {
+    flex-wrap: wrap;
+    .link {
+      margin: $spacing;
+    }
+  }
+  .toolbarTitle {
+    flex-grow: 1;
+  }
