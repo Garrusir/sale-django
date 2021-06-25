@@ -8,15 +8,19 @@ body {
   padding: 0;
 }
 
-  .appBar {
-    border-bottom: 1px solid $divider;
+.appBar {
+  border-bottom: 1px solid $divider;
+}
+.toolbar {
+  flex-wrap: wrap;
+  .link {
+    margin: $spacing;
   }
-  .toolbar {
-    flex-wrap: wrap;
-    .link {
-      margin: $spacing;
-    }
-  }
-  .toolbarTitle {
-    flex-grow: 1;
-  }
+}
+.toolbarTitle {
+  flex-grow: 1;
+}
+
+.container {
+  padding: 0 24px;
+}
