@@ -1,6 +1,6 @@
 # from django.shortcuts import render
 from rest_framework.generics import get_object_or_404
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from rest_framework.response import Response
@@ -60,12 +60,29 @@ class AuthView(APIView):
 
           if loggedUser.groups.filter(name='member').exists():
              return Response({
-#                 "user": loggedUser.groups,
+                "user": {
+                  "firstName": loggedUser.first_name,
+                  "last_name": loggedUser.last_name,
+                  "email": loggedUser.email,
+                },
                 "role": "member",
+              })
+          elif loggedUser.groups.filter(name='staff').exists():
+             return Response({
+                "user": {
+                  "firstName": loggedUser.first_name,
+                  "last_name": loggedUser.last_name,
+                  "email": loggedUser.email,
+                },
+                "role": "staff",
               })
           else:
             return Response({
-#                "user": loggedUser,
+              "user": {
+                  "firstName": loggedUser.first_name,
+                  "last_name": loggedUser.last_name,
+                  "email": loggedUser.email,
+                },
                "role": "administrator",
              })
         else:
@@ -92,7 +109,49 @@ class RegistrationView(APIView):
     group = Group.objects.get(name='member')
     group.user_set.add(user)
 
-    return Response({"status":"success","response":"User Successfully Created"}, status=status.HTTP_201_CREATED)
+    return Response({
+      "user": {
+          "firstName": request.data.get('lastName'),
+          "last_name": request.data.get('firstName'),
+          "email": request.data.get('email'),
+        },
+       "role": "member",
+    }, status=status.HTTP_201_CREATED)
 
+class UserView(APIView):
+  def get(self, request):
+   if request.user.groups.filter(name='member').exists():
+       return Response({
+         "isAuth": request.user.is_authenticated,
+         "user": {
+           "firstName": request.user.first_name,
+           "lastName": request.user.last_name,
+           "email": request.user.email,
+         },
+         "role": "member",
+       })
+   elif request.user.groups.filter(name='staff').exists():
+     return Response({
+       "isAuth": request.user.is_authenticated,
+       "user": {
+         "firstName": request.user.first_name,
+         "lastName": request.user.last_name,
+         "email": request.user.email,
+       },
+       "role": "staff",
+     })
+   else:
+      return Response({
+          "isAuth": request.user.is_authenticated,
+          "user": {
+            "firstName": request.user.first_name,
+            "lastName": request.user.last_name,
+            "email": request.user.email,
+          },
+          "role": "administrator",
+        })
 
-
+class LogoutView(APIView):
+  def post(self, request):
+      logout(request)
+      return Response({"status":"success"})
