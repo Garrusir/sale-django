@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function MediaCard({sale}) {
+export default function MediaCard({sale, onClick}) {
     const classes = useStyles();
 
     return (
@@ -32,19 +32,24 @@ export default function MediaCard({sale}) {
                     className={classes.media}
                     image={sale.image}
                     title={sale.title}
+
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2" className={classes.title} alt={sale.title}>
                         {sale.title}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        <b>{sale.price_new}</b>
-                        <strike>{sale.price_old}</strike>
+                        <b>{sale.priceNew} </b>
+                        <strike>{sale.priceOld}</strike>
+                    </Typography>
+                    <br/>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {sale?.store?.name}
                     </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary">
+                <Button size="small" color="primary" onClick={onClick}>
                     Подробнее
                 </Button>
             </CardActions>
