@@ -104,6 +104,9 @@ export function AuthPage() {
                 </Typography>
                 <form className={classes.form} noValidate>
                     <TextField
+                        inputProps={{
+                            'data-testid': 'email'
+                        }}
                         value={username}
                         onChange={event => setUsername(event.target.value)}
                         variant="outlined"
@@ -117,6 +120,9 @@ export function AuthPage() {
                         autoFocus
                     />
                     <TextField
+                        inputProps={{
+                            'data-testid': 'password'
+                        }}
                         value={password}
                         onChange={event => setPassword(event.target.value)}
                         variant="outlined"
