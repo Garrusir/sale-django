@@ -27,6 +27,7 @@ class Shop(models.Model):
 class Sale(models.Model):
 	title = models.CharField(max_length=150)
 	description = models.CharField(max_length=300)
+	image = models.CharField(default = 'https://picsum.photos/300/200', max_length=300)
 	date_start = models.DateTimeField()
 	date_end = models.DateTimeField()
 	price_old = models.DecimalField(default = 0, max_digits=7, decimal_places=2)
