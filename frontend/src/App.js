@@ -12,8 +12,10 @@ import {useAuth} from "./hooks/auth.hook";
 import Footer from "./components/Footer";
 import {makeStyles} from "@material-ui/core/styles";
 
+const originPath = window.location?.origin;
+
 const client = new ApolloClient({
-    uri: 'http://localhost:8000/graphql/',
+    uri: `${originPath}/graphql/`,
 });
 
 const useStyles = makeStyles(() => ({
